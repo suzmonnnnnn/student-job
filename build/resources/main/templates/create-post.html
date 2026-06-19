@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Job / Item</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<main class="form-wrap">
+    <form th:action="@{/posts}" th:object="${post}" method="post" enctype="multipart/form-data" class="form-card">
+        <h1>Create Job / Item</h1>
+        <p class="muted">Post a student job, donation, or item with image upload.</p>
+
+        <label>Title</label>
+        <input th:field="*{title}" placeholder="Example: Part-time cafe job / Free study table" required>
+        <small th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
+
+        <label>Category</label>
+        <select th:field="*{category}" required>
+            <option value="">Choose category</option>
+            <option value="Job">Job</option>
+            <option value="Donation">Donation</option>
+            <option value="Item">Item</option>
+            <option value="Books">Books</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Other">Other</option>
+        </select>
+        <small th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></small>
+
+        <label>Location</label>
+        <input th:field="*{location}" placeholder="Example: Ulsan, Seoul, Campus" required>
+        <small th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></small>
+
+        <label>Description</label>
+        <textarea th:field="*{description}" rows="7" placeholder="Write details, requirements, pickup place, contact method, etc." required></textarea>
+        <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+
+        <label>Image</label>
+        <input type="file" name="imageFile" accept="image/jpeg,image/png,image/gif,image/webp">
+        <small>Allowed: JPG, PNG, GIF, WEBP. Max size: 5MB.</small>
+        <small th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></small>
+
+        <button class="btn full" type="submit">Create Job / Item</button>
+    </form>
+</main>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav th:fragment="navbar" class="navbar">
+    <a class="brand" th:href="@{/}">Student Job & Item Portal</a>
+    <form class="nav-search" th:action="@{/search}" method="get">
+        <input type="text" name="q" placeholder="Search jobs, items, donations...">
+        <button type="submit">Search</button>
+    </form>
+    <div class="nav-links">
+        <a th:href="@{/}">Home</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/dashboard}">Dashboard</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/posts/new}">Create Job</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/profile}">Profile</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}">Login</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/signup}" class="btn-small">Sign Up</a>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="inline-form"><button class="link-button" type="submit">Logout</button></form>
+    </div>
+</nav>
+<footer th:fragment="footer" class="footer">© 2026 Student Job & Item Management Portal. Built with Spring Boot, PostgreSQL and Thymeleaf.</footer>
+</body>
+</html>

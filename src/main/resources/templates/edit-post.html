@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Job / Item</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<div th:replace="~{fragments/layout :: navbar}"></div>
+<main class="form-wrap">
+    <form th:action="@{'/posts/' + ${post.id} + '/edit'}" th:object="${post}" method="post" enctype="multipart/form-data" class="form-card">
+        <h1>Edit Job / Item</h1>
+
+        <label>Title</label>
+        <input th:field="*{title}" required>
+        <small th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
+
+        <label>Category</label>
+        <select th:field="*{category}" required>
+            <option value="Job">Job</option>
+            <option value="Donation">Donation</option>
+            <option value="Item">Item</option>
+            <option value="Books">Books</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Other">Other</option>
+        </select>
+        <small th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></small>
+
+        <label>Location</label>
+        <input th:field="*{location}" required>
+        <small th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></small>
+
+        <label>Description</label>
+        <textarea th:field="*{description}" rows="7" required></textarea>
+        <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+
+        <label>Current Image</label>
+        <img th:if="${post.image != null}" class="preview" th:src="@{'/uploads/' + ${post.image}}" alt="Current image">
+        <p th:if="${post.image == null}" class="muted">No image uploaded yet.</p>
+
+        <label>Replace Image</label>
+        <input type="file" name="imageFile" accept="image/jpeg,image/png,image/gif,image/webp">
+        <small>Upload a new image only if you want to replace the current one.</small>
+        <small th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></small>
+
+        <button class="btn full" type="submit">Save Changes</button>
+    </form>
+</main>
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
